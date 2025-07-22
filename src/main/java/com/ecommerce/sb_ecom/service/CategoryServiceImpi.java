@@ -1,6 +1,8 @@
 package com.ecommerce.sb_ecom.service;
 
+import com.ecommerce.sb_ecom.Repository.CategoryRepository;
 import com.ecommerce.sb_ecom.model.Category;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -12,38 +14,38 @@ import java.util.Optional;
 
 @Service
 public class CategoryServiceImpi implements CategoryService{
-    private List<Category> categories = new ArrayList<>();
-    private Long nextId = 1L;
+    @Autowired
+    private CategoryRepository categoryRepository;
     @Override
     public List<Category> getAllCategories() {
-        return categories;
+        return categoryRepository.findAll();
     }
 
     @Override
     public void createCategory(Category category) {
-        category.setCategoryId(nextId++);
-        categories.add(category);
+        categoryRepository.save(category);
     }
 
     @Override
     public String deleteCategory(Long categoryId) {
+        List<Category> categories = categoryRepository.findAll();
         Category category = categories.stream()
                 .filter(c -> c.getCategoryId().equals(categoryId))
                 .findFirst().orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"category not found"));
-        categories.remove(category);
+        categoryRepository.delete(category);
         return "Category with categoryId "+ categoryId+" is deleted successfully!!";
     }
 
     @Override
     public Category updateCategory(Category category, Long categoryId) {
-
+        List<Category> categories = categoryRepository.findAll();
         Optional<Category> optionalCategory = categories.stream()
                 .filter(c -> c.getCategoryId().equals(categoryId))
                 .findFirst();
         if(optionalCategory.isPresent()){
             Category exsistingCategory = optionalCategory.get();
             exsistingCategory.setCategoryName(category.getCategoryName());
-            return  exsistingCategory;
+            return categoryRepository.save(exsistingCategory);
         }
         else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"category not found");
