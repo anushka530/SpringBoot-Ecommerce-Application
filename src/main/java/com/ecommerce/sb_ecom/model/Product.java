@@ -1,6 +1,8 @@
 package com.ecommerce.sb_ecom.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +15,12 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+    @NotBlank
+    @Size(min = 3, message = "min size of productName should be 3")
     private String productName;
     private String productImage;
+    @NotBlank
+    @Size(min = 6, message = "min size of productDescription should be 6")
     private String description;
     private Integer quantity;
     private Double price;
