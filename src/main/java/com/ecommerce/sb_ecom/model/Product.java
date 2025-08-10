@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -28,5 +29,6 @@ public class Product {
     private Double specialPrice;
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @ToString.Exclude
     private Category category;
 }

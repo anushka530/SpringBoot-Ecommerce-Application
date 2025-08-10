@@ -117,8 +117,12 @@ public class ProductServiceImpl implements ProductService {
                 ?Sort.by(sortBy).ascending()
                 :Sort.by(sortBy).descending();
         Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByOrder);
-        Page<Product> ProductPage = productRepository.findByProductNameLikeIgnoreCase('%' + keyword + '%',pageDetails);
+        Page<Product> ProductPage = productRepository.findByProductNameLikeIgnoreCase("%"+ keyword +"%",pageDetails);
         List<Product> products = ProductPage.getContent();
+        System.out.println("Get product list" + products);
+        System.out.println("Get keyword" + keyword);
+         for(Product i: products)
+             System.out.println(i);
         if (products.isEmpty())
             throw new APIException("No products found");
         List<ProductDTO> ProductDTOs = products.stream()
