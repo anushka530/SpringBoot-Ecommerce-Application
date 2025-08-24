@@ -1,0 +1,13 @@
+package com.ecommerce.sb_ecom.Repository;
+
+import com.ecommerce.sb_ecom.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+@Repository
+public interface UserRepositiory extends JpaRepository<User,Long> {
+    Optional<User> findByUserName(String username);
+    Boolean existsByUserName(String username);
+    Boolean existsByEmail(String email);
+}
