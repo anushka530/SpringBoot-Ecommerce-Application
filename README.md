@@ -1,4 +1,3 @@
-Here is the Markdown content of the `README.md` file from the repository:
 
 ```markdown
 # E-Commerce Platform API
@@ -33,7 +32,7 @@ Controller → Service → Repository (layered architecture)
 ## API Endpoints
 
 | Method | Endpoint | Description | Auth |
-| --- | --- | --- | --- |
+| ---    |      --- |    ---      | --- |
 | POST | /api/auth/register | Register user | No |
 | POST | /api/auth/login | Login | No |
 | GET | /api/products | Get all products | No |
